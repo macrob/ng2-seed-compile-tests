@@ -1,0 +1,27 @@
+{
+  "name": "ng2-seed",
+  "version": "1.0.0",
+  "description": "Angular2Js Webpack Karma Protractor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/macrob/ng2-seed-compile-tests.git"
+  },
+  "keywords": [
+    "angular2js",
+    "karma",
+    "webpack",
+    "protractor",
+    "e2e",
+    "jasmine2"
+  ],
+  "author": "Macrob",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/macrob/ng2-seed-compile-tests/issues"
+  },
+  "homepage": "https://github.com/macrob/ng2-seed-compile-tests#readme"
+}
