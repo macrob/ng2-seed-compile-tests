@@ -36,8 +36,9 @@ module.exports = function(grunt) {
 		webdrivermanager: require('./config/grunt/webdrivermanager.js')(cnf),
 		protractor: require('./config/grunt/protractor.js')(cnf),
 
-
+		/* KARMA UNIT TEST CNF */
 		karma: require('./config/grunt/karma.js')(cnf),
+
 		exec:  require('./config/grunt/exec.js')(cnf),
 	});
 

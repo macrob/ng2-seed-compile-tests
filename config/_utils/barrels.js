@@ -4,32 +4,40 @@ var fs = require('fs');
 var exec = require('child_process').execSync;
 
 
-var build = config.get('grunt.build');
-var root = path.resolve('/var/www2/ng2-seed/config/_utils/../../');
-var buildPAth = path.resolve(root, 'dist', build) + '/';
+var cnf = {};
+cnf.root = path.resolve(__dirname, '..', '..');
+cnf.build = path.resolve(cnf.root, 'dist', config.get('grunt.build')) + '/';
+cnf.app = path.resolve(cnf.build, 'app') + '/';
+cnf.systemjsPath = path.resolve(cnf.app, 'systemjs.configs.js');
 
-var writeDataToFile = buildPAth + 'app/systemjs.configs.js';
 
-function getModules() {
+
+var cntModules = format(getModules(cnf));
+// console.log(replace(cnf.systemjsPath, cntModules));
+
+fs.writeFileSync(cnf.systemjsPath, replace(cnf.systemjsPath, cntModules));
+
+
+
+function getModules({ app, build, root}) {
+
 	var result = [];
-	var rs = exec('find ' + root + '/dist/gbuild/app -iname \'index.js\'', {
+	var rs = exec('find ' + app + ' -iname \'index.js\'', {
 		encoding: 'utf-8'
 	});
 
 	rs = rs.split("\n");
 
 	rs.forEach( (item) => {
-
 		item = path.resolve(item);
 
 		var dirname = path.dirname(item);
-		var barrel = dirname.replace(buildPAth, '');
+		var barrel = dirname.replace(build, '');
 
 		if (item === root || barrel === 'app') {
 			return true;
 		}
 
-		// console.log({item, dirname, build, root, buildPAth, barrel});
 		result.push(barrel);
 	});
 
@@ -52,12 +60,6 @@ function replace(file, content, keyword = 'var barrels = {};') {
 	});
 
 	content = "var barrels = {\n" + content + "\n};";
-	// console.log(keyword, content, cnf);
 
 	return cnf.replace(keyword, content);
-
 }
-
-var cntModules = format(getModules());
-// console.log(replace(writeDataToFile, cntModules));
-fs.writeFileSync(writeDataToFile, replace(writeDataToFile, cntModules));

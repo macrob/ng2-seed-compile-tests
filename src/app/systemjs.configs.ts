@@ -1,6 +1,6 @@
 
 declare var System: any;
-
+/* GENERATE BY config/_utils/barrels.js */
 var barrels = {};
 
 const cnf = {

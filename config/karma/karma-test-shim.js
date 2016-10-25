@@ -1,5 +1,12 @@
 
 
+
+var cnf = {
+  build: 'gbuild',
+	karma: 'karma/',
+	app: 'app/'
+};
+
 // #docregion
 // /*global jasmine, __karma__, window*/
 // (function (global) {
@@ -10,32 +17,9 @@ Error.stackTraceLimit = 0; // "No stacktrace"" is usually best for app testing.
 // Error.stackTraceLimit = Infinity; //
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
-const build = 'gbuild';
-
-// var karmaCnfPath = 'config/karma/';
-var karmaCnfPath = 'karma/';
-var jsCnfPath = 'js/';
-var app = 'app/';
-
-// var builtPath = 'base/dist/'+build+'/app/';
-// var builtPath = 'dist/'+build+'/app/';
 
 __karma__.loaded = function () { };
 
-function isJsFile(path) {
-  return path.slice(-3) == '.js';
-}
-
-function isSpecFile(path) {
-
-  return /(\.spec\.js)$/.test(path);
-}
-
-function isBuiltFile(path) {
-// console.log(path);
-  // return /wbuild/.test(path);
-  return /app/.test(path);
-}
 // console.log(window.__karma__.files);process.exit(1);
 // console.log(Object.keys(window.__karma__.files));
 var allSpecFiles = Object.keys(window.__karma__.files)
@@ -94,7 +78,7 @@ System.config({
 
 });
 
-System.import(app + 'systemjs.configs.js')
+System.import(cnf.app +  'systemjs.configs.js')
   .then(initTestBed)
   .then(initTesting);
 
@@ -127,4 +111,17 @@ function initTesting () {
 }
 
 
-// });
+function isJsFile(path) {
+  return path.slice(-3) == '.js';
+}
+
+function isSpecFile(path) {
+
+  return /(\.spec\.js)$/.test(path);
+}
+
+function isBuiltFile(path) {
+// console.log(path);
+  // return /wbuild/.test(path);
+  return /app/.test(path);
+}

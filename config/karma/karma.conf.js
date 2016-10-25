@@ -98,9 +98,6 @@ module.exports = function(config) {
       // cnf.npm + 'zone.js/dist/async-test.js',
       // cnf.npm + 'zone.js/dist/fake-async-test.js',
 
-      // System.js for module loading
-      // cnf.npm + 'systemjs/dist/system.src.js',
-
       // RxJs
       // { pattern: cnf.npm + 'rxjs/**/*.js', included: false, watched: false },
       // { pattern: cnf.npm + 'rxjs/**/*.js.map', included: false, watched: false },
