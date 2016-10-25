@@ -9,7 +9,7 @@ let cnf = {
 	seleniumHost: config.get('selenium.host'),
 	httpPort: config.get('http.port'),
 	httpHost: config.get('http.host'),
-	tests: config.get('tests')
+	tests: config.get('tests'),
 };
 
 module.exports = function(grunt) {
@@ -34,7 +34,11 @@ module.exports = function(grunt) {
 
 		/* End 2 end testing */
 		webdrivermanager: require('./config/grunt/webdrivermanager.js')(cnf),
-		protractor: require('./config/grunt/protractor.js')(cnf)
+		protractor: require('./config/grunt/protractor.js')(cnf),
+
+
+		karma: require('./config/grunt/karma.js')(cnf),
+		exec:  require('./config/grunt/exec.js')(cnf),
 	});
 
 
@@ -43,6 +47,19 @@ module.exports = function(grunt) {
 		'tsApp',
 		'http-server'
 	]);
+
+	grunt.registerTask('tsApp', [
+		'clean:app',
+		'copy:app',
+		'ts:app',
+		'exec:barrels'
+	]);
+
+	grunt.registerTask('tsE2e', [
+		'clean:e2e',
+		'ts:e2e',
+	]);
+
 
 	grunt.registerTask('e2e', [
 		'tplCopy',
@@ -59,18 +76,6 @@ module.exports = function(grunt) {
 		'watch:buildE2e'
 
 	]);
-
-	grunt.registerTask('tsApp', [
-		'clean:app',
-		'copy:app',
-		'ts:app'
-	]);
-
-	grunt.registerTask('tsE2e', [
-		'clean:e2e',
-		'ts:e2e',
-	]);
-
 
 	grunt.registerTask('e2eServer', [
 		'tsE2e',
@@ -114,4 +119,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-browser-sync');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-connect');
+
+	grunt.loadNpmTasks('grunt-exec');
+
 };
