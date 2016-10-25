@@ -4,17 +4,16 @@ return	{
 		out_dir: './selenium',
 		multiCapabilities: [{
 			browserName: 'phantomjs'
+		}, {
+			browserName: 'chrome'
 		}
-		// , {
-		// 	browserName: 'chrome'
-		// }
 	],
 		// seleniumArgs: [{command: 'start'}],
 		seleniumPort: cnf.seleniumPort,
 		// ignore_ssl: false,
 		// proxy: false,
 		method: 'GET',
-		// start: true,
+
 		// webdriverVersions: {
 		// 		selenium: '2.44.0',
 		// 		chromedriver: '2.12',

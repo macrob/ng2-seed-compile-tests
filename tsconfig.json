@@ -1,0 +1,8 @@
+{
+	"compileOnSave": false,
+	"buildOnSave": false,
+	"exclude": [
+		"node_modules",
+		"e2e"
+	]
+}

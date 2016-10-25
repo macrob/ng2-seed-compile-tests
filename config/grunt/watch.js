@@ -1,5 +1,31 @@
 module.exports = function(cnf) {
     return {
+        'template': {
+            files: [cnf.srcTpl + '**/*.html', cnf.srcTpl + '**/*.js', cnf.srcTpl + '**/*.css', cnf.srcTpl + '**/*.md', cnf.srcTpl + '**/*.xml', cnf.srcTpl + '**/*.ico', cnf.srcTpl + '**/*.txt', cnf.srcTpl + '**/*.png'],
+
+            tasks: [
+                'copy:template'
+            ]
+        },
+        'buildE2e': {
+            files: [
+                cnf.srcTpl + '**/*.html', cnf.srcTpl + '**/*.js', cnf.srcTpl + '**/*.css', cnf.srcTpl + '**/*.md', cnf.srcTpl + '**/*.xml', cnf.srcTpl + '**/*.ico', cnf.srcTpl + '**/*.txt', cnf.srcTpl + '**/*.png',
+                'e2e/**/*.ts',
+                'src/app/**/*.ts', '!src/app/**/*.spec.ts'
+            ],
+
+            tasks: [
+                'copy:template',
+
+                'ts:e2e',
+
+                // 'tslint',
+                'ts:app',
+                // 'todo',
+
+                'protractor'
+            ]
+        },
         'app-static': {
             files: ['src/app/**/*.js', 'src/app/**/*.css', 'src/app/**/*.html'],
 

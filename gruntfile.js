@@ -1,7 +1,9 @@
 const config = require('config');
 
 let cnf = {
-	build: 'dist/gbuild/',
+	srcApp: config.get('src.app'),
+	srcTpl:  config.get('src.template'),
+	build: 'dist/' + config.get('grunt.build'),
 	e2eBuild: 'dist/'+config.get('e2e.build'),
 	seleniumPort: config.get('selenium.port'),
 	seleniumHost: config.get('selenium.host'),
@@ -15,82 +17,84 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		watch: require('./config/grunt/watch.js')(cnf),
-		// browserSync: require('./config/grunt/browserSync.js')(cnf),
-		webdrivermanager: require('./config/grunt/webdrivermanager.js')(cnf),
-		selenium_standalone: {
-			serverConfig: require('./config/grunt/selenium_standalone.js')(cnf),
-		},
-		webpack: {
-			app: require('./webpack.config.js')
-		},
+
+		copy: require('./config/grunt/copy.js')(cnf),
+		clean: require('./config/grunt/clean.js')(cnf),
 		'http-server': {
 			dev: require('./config/grunt/http-server.js')(cnf)
 		},
-		sass: require('./config/grunt/sass.js')(cnf),
+
+		/*
+		ts:app - compile app ts files
+		ts:spec - compile spec ts files
+		ts: e2e - e2e app ts files
+		*/
 		ts: require('./config/grunt/ts.js')(cnf),
-		clean: require('./config/grunt/clean.js')(cnf),
-		copy: require('./config/grunt/copy.js')(cnf),
-		rename: {
-			'html-index': {
-				src: cnf.build + 'index.gbuild.html',
-				dest: cnf.build + 'index.html'
-			}
-		},
-		todo: require('./config/grunt/todo.js'),
-		// typedoc: {
-		// 	build: require('./config/grunt/typedoc.js')(cnf)
-		// },
-		tslint: require('./config/grunt/tslint.js'),
-		karma: require('./config/grunt/karma.js')(cnf),
-		protractor: require('./config/grunt/protractor.js')(cnf),
-		// connect: {
-		// 		server: {
-		// 				options: {
-		// 						hostname: "172.16.167.153",
-		// 						port: 9001,
-		// 						base: "dist/"
-		// 				}
-		// 		}
-		// }
+
+
+		/* End 2 end testing */
+		webdrivermanager: require('./config/grunt/webdrivermanager.js')(cnf),
+		protractor: require('./config/grunt/protractor.js')(cnf)
 	});
 
 
 	grunt.registerTask('default', [
-		'tslint',
-		'clean:build',
-		'ts',
-		// 'webpack',
-		'copy', 'rename:html-index',
-
-
-		'http-server',
-		// 'protractor',
-
-		// 'jasmine_nodejs',
-		// 'typedoc',
-		'todo'
-		// 'express'
+		'tplCopy',
+		'tsApp',
+		'http-server'
 	]);
 
+	grunt.registerTask('e2e', [
+		'tplCopy',
+		'tsApp',
+		'http-server',
 
-	grunt.registerTask('hot', [
-		'clean:build',
-		'copy', 'rename:html-index',
-		'ts',
-		'sass',
-		// 'copy:karma',
-		// 'typedoc',
-		// 'selenium_standalone:serverConfig:start',
+		'tsE2e',
 		'webdrivermanager:start',
-		'karma',
-		'http-server',
-		// 'browserSync:server',
-		// 'browserSync:proxy',
-		// 'protractor',
-		'watch',
+		'protractor',
+		// 'watch:e2e',
+		// 'watch:ts',
+		// 'watch:template',
+
+		'watch:buildE2e'
+
 	]);
 
-	// grunt.registerTask('server-proxy', ["connect", "browserSync:proxy"]);
+	grunt.registerTask('tsApp', [
+		'clean:app',
+		'copy:app',
+		'ts:app'
+	]);
+
+	grunt.registerTask('tsE2e', [
+		'clean:e2e',
+		'ts:e2e',
+	]);
+
+
+	grunt.registerTask('e2eServer', [
+		'tsE2e',
+		'http-server',
+		'webdrivermanager:start',
+		'protractor',
+	]);
+
+
+	grunt.registerTask('e2eHot', [
+		'e2eServer',
+		'watch:e2e'
+	]);
+
+
+	grunt.registerTask('tplCopy', [
+		'clean:build',
+		'copy:template'
+	]);
+
+	grunt.registerTask('tplServer', [
+		'tplCopy',
+		'http-server'
+	]);
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
