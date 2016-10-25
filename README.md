@@ -72,3 +72,7 @@ $ chromium-browser --allow-running-insecure-content --ignore-certificate-errors 
 
 Cannot find module 'protractor-jasmine2-screenshot-reporter'
 npm install --save protractor-jasmine2-screenshot-reporter phantomjs
+
+
+npm install --save systemjs
+npm install --save systemjs reflect-metadata

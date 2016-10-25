@@ -15,6 +15,7 @@ const build = 'gbuild';
 // var karmaCnfPath = 'config/karma/';
 var karmaCnfPath = 'karma/';
 var jsCnfPath = 'js/';
+var app = 'app/';
 
 // var builtPath = 'base/dist/'+build+'/app/';
 // var builtPath = 'dist/'+build+'/app/';
@@ -78,7 +79,8 @@ Object.keys(window.__karma__.files).forEach( function(path) {
 // console.log(map, path);
 System.config({
   // baseURL: '/',
-  baseURL: '/base',
+  // baseURL: '/base',
+	baseURL: '/base',
   // packages: {
   //   '/app/pages/dashboard/dashboard.html': '/base/app/pages/dashboard/dashboard.html'
   // },
@@ -92,34 +94,9 @@ System.config({
 
 });
 
-System.import(karmaCnfPath + 'systemjs.config.js')
-  .then(importSystemJsExtras)
+System.import(app + 'systemjs.configs.js')
   .then(initTestBed)
   .then(initTesting);
-
-/** Optional SystemJS configuration extras. Keep going w/o it */
-// function importSystemJsExtras(){
-//   // console.log('importSystemJsExtras');
-//   return System.import(karmaCnfPath + 'systemjs.config.extras.js')
-//   .catch(function(reason) {
-//     console.log(
-//       'Warning: System.import could not load the optional "systemjs.config.extras.js". Did you omit it by accident? Continuing without it.'
-//     );
-//     console.log(reason);
-//   });
-// }
-
-function importSystemJsExtras(){
-  // console.log('importSystemJsExtras');
-  return System.import(karmaCnfPath + 'systemjs.config.extras.js')
-	// return System.import(jsCnfPath + 'systemjs.config.js')
-  .catch(function(reason) {
-    console.log(
-      'Warning: System.import could not load the optional "systemjs.config.extras.js". Did you omit it by accident? Continuing without it.'
-    );
-    console.log(reason);
-  });
-}
 
 function initTestBed(){
   return Promise.all([

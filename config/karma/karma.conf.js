@@ -6,7 +6,7 @@
  // set -x DISPLAY :2
 const config = require('config');
 const path = require('path');
-const util = require('../util/');
+const util = require('../_utils/');
 
 // const build = 'gbuild'; // grunt (gcnf.build) or webpack (wcnf.build)
 
@@ -31,6 +31,12 @@ const cnf = {
 }
 
 
+//
+// <script src="https://unpkg.com/core-js/client/shim.min.js"></script>
+//
+// <script src="https://unpkg.com/zone.js@0.6.25?main=browser"></script>
+// <script src="https://unpkg.com/reflect-metadata@0.1.3"></script>
+// <script src="https://unpkg.com/systemjs@0.19.27/dist/system.src.js"></script>
 
 module.exports = function(config) {
 
@@ -69,41 +75,48 @@ module.exports = function(config) {
     // },
     files: [
       // // System.js for module loading
-      // cnf.npm + 'systemjs/dist/system.src.js',
+      cnf.npm + 'systemjs/dist/system.src.js',
+      cnf.npm + 'systemjs/dist/system-polyfills.js',
+
+      // 'https://unpkg.com/systemjs', ReferenceError: Can't find variable: require
 
       // Polyfills
-			cnf.npm + 'jquery/dist/jquery.js',
-      cnf.npm + 'core-js/client/shim.js',
-      cnf.npm + 'reflect-metadata/Reflect.js',
+      'https://unpkg.com/core-js/client/shim.min.js',
+      'https://unpkg.com/reflect-metadata',
+			// cnf.npm + 'jquery/dist/jquery.js',
+      // cnf.npm + 'core-js/client/shim.js',
+      // cnf.npm + 'reflect-metadata/Reflect.js',
 
-      // zone.js
-      cnf.npm + 'zone.js/dist/zone.js',
-      cnf.npm + 'zone.js/dist/long-stack-trace-zone.js',
-      cnf.npm + 'zone.js/dist/proxy.js',
-      cnf.npm + 'zone.js/dist/sync-test.js',
-      cnf.npm + 'zone.js/dist/jasmine-patch.js',
-      cnf.npm + 'zone.js/dist/async-test.js',
-      cnf.npm + 'zone.js/dist/fake-async-test.js',
+      'https://unpkg.com/zone.js',
+      //
+      // // zone.js
+      // cnf.npm + 'zone.js/dist/zone.js',
+      // cnf.npm + 'zone.js/dist/long-stack-trace-zone.js',
+      // cnf.npm + 'zone.js/dist/proxy.js',
+      // cnf.npm + 'zone.js/dist/sync-test.js',
+      // cnf.npm + 'zone.js/dist/jasmine-patch.js',
+      // cnf.npm + 'zone.js/dist/async-test.js',
+      // cnf.npm + 'zone.js/dist/fake-async-test.js',
 
       // System.js for module loading
-      cnf.npm + 'systemjs/dist/system.src.js',
+      // cnf.npm + 'systemjs/dist/system.src.js',
 
       // RxJs
-      { pattern: cnf.npm + 'rxjs/**/*.js', included: false, watched: false },
-      { pattern: cnf.npm + 'rxjs/**/*.js.map', included: false, watched: false },
+      // { pattern: cnf.npm + 'rxjs/**/*.js', included: false, watched: false },
+      // { pattern: cnf.npm + 'rxjs/**/*.js.map', included: false, watched: false },
 
       // Paths loaded via module imports:
       // Angular itself
-      {pattern: cnf.npm + '@angular/**/*.js', included: false, watched: false},
-      {pattern: cnf.npm + '@angular/**/*.js.map', included: false, watched: false},
+      // {pattern: cnf.npm + '@angular/**/*.js', included: false, watched: false},
+      // {pattern: cnf.npm + '@angular/**/*.js.map', included: false, watched: false},
 
       // {pattern: cnf.karma + 'systemjs.config.js', included: false, watched: false},
       // {pattern: cnf.karma + 'systemjs.config.extras.js', included: false, watched: false},
-      {pattern: cnf.karma + 'karma-test-shim.js', included: true, watched: false},
-      {pattern: cnf.karma + 'systemjs.config.js', included: true, watched: false},
-      {pattern: cnf.karma + 'systemjs.config.extras.js', included: true, watched: false},
+      // {pattern: cnf.karma + 'karma-test-shim.js', included: true, watched: false},
+      // {pattern: cnf.karma + 'systemjs.config.js', included: true, watched: false},
+      // {pattern: cnf.karma + 'systemjs.config.extras.js', included: true, watched: false},
 
-      // cnf.karma + 'karma-test-shim.js',
+      cnf.karma + 'karma-test-shim.js',
       // cnf.karma + 'systemjs.config.js',
       // cnf.karma + 'systemjs.config.extras.js',
 

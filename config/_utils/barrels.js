@@ -5,7 +5,7 @@ var exec = require('child_process').execSync;
 
 
 var build = config.get('grunt.build');
-var root = path.resolve('/var/www2/ng2-seed/config/_util/../../');
+var root = path.resolve('/var/www2/ng2-seed/config/_utils/../../');
 var buildPAth = path.resolve(root, 'dist', build) + '/';
 
 var writeDataToFile = buildPAth + 'app/systemjs.configs.js';

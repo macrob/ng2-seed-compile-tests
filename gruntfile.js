@@ -48,12 +48,38 @@ module.exports = function(grunt) {
 		'http-server'
 	]);
 
+	grunt.registerTask('tsKarma', [
+		'ts:spec',
+		'copy:karma',
+		'karma'
+	]);
+
+
 	grunt.registerTask('tsApp', [
 		'clean:app',
 		'copy:app',
 		'ts:app',
 		'exec:barrels'
 	]);
+
+	grunt.registerTask('tsAppServer', [
+		'clean:app',
+		'copy:app',
+		'ts:app',
+		'exec:barrels',
+		'http-server'
+	]);
+
+	grunt.registerTask('tsAppHot', [
+		'clean:app',
+		'copy:app',
+		'ts:app',
+		'exec:barrels',
+		'http-server',
+
+		'watch:ts'
+	]);
+
 
 	grunt.registerTask('tsE2e', [
 		'clean:e2e',
@@ -97,6 +123,15 @@ module.exports = function(grunt) {
 	]);
 
 	grunt.registerTask('tplServer', [
+		'tplCopy',
+		'http-server'
+	]);
+
+	// grunt.registerTask('tsSpec', [
+	// 	'http-server'
+	// ]);
+
+	grunt.registerTask('karmaServer', [
 		'tplCopy',
 		'http-server'
 	]);

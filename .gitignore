@@ -3,3 +3,4 @@ dist/*
 .tscache
 selenium
 tmp/
+*.tmp.txt
