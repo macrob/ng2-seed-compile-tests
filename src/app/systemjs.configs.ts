@@ -22,7 +22,7 @@ const cnf = {
 			'rxjs':											'npm:rxjs',
 			'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
 			// 'jquery': 'https://code.jquery.com/jquery-3.1.1.min.js',
-			'jquery': 'unpkg/jquery',
+			'jQuery': 'unpkg/jquery',
 			'lodash': 'npm:lodash'
 		}
 	},

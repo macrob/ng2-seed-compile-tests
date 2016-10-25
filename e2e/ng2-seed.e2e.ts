@@ -13,18 +13,18 @@ describe('Index Page', () => {
 	}, 20000);
 
 	it('Index should show title TS', (cb: any) => {
-		browser.get(maps.index);
 		browser.ignoreSynchronization = true;
+		browser.get(maps.index);
 
 
-		expect(browser.getTitle()).toContain('ng2 Test');
+		expect(browser.getTitle()).toContain('ng22 Test');
 		cb();
 	});
 
 
 	it('Index should show error', (cb: any) => {
-		browser.get(maps.index);
 		browser.ignoreSynchronization = true;
+		browser.get(maps.index);
 
 
 		expect(browser.getTitle()).toContain('ng2 Test');

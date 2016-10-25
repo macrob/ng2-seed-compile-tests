@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Angular2Js Webpack Karma Protractor",
   "main": "index.js",
+
   "scripts": {
-    "start": "grunt tplServer;"
+    "start:hot": "grunt hot:app-karma;"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/macrob/ng2-seed-compile-tests.git"

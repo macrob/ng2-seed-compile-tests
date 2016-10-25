@@ -3,6 +3,6 @@ module.exports = {
 		configuration: 'tslint.json'
 	},
 	files: {
-		src: ['src/app/**/*.ts', '!src/app/.baseDir.ts', '!**/*.spec.ts', 'src/*.ts'],
+		src: ['src/app/**/*.ts', '!**/*.baseDir.ts', '!**/*.spec.ts'],
 	}
 };

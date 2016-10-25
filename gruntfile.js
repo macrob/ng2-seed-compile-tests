@@ -1,4 +1,7 @@
 const config = require('config');
+const debug = require('debug')('grunt:cnf:gruntfile.js');
+
+console.log('To show debug info set DEBUG="grunt*"');
 
 let cnf = {
 	srcApp: config.get('src.app'),
@@ -9,8 +12,12 @@ let cnf = {
 	seleniumHost: config.get('selenium.host'),
 	httpPort: config.get('http.port'),
 	httpHost: config.get('http.host'),
+	karmaPort: config.get('karma.port'),
+  karmaHost: config.get('karma.host'),
 	tests: config.get('tests'),
 };
+
+debug(cnf);
 
 module.exports = function(grunt) {
 	'use strict';
@@ -18,11 +25,11 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		watch: require('./config/grunt/watch.js')(cnf),
 
+		tslint: require('./config/grunt/tslint.js'),
+		todo: require('./config/grunt/todo.js'),
 		copy: require('./config/grunt/copy.js')(cnf),
 		clean: require('./config/grunt/clean.js')(cnf),
-		'http-server': {
-			dev: require('./config/grunt/http-server.js')(cnf)
-		},
+		'http-server': require('./config/grunt/http-server.js')(cnf),
 
 		/*
 		ts:app - compile app ts files
@@ -41,101 +48,6 @@ module.exports = function(grunt) {
 
 		exec:  require('./config/grunt/exec.js')(cnf),
 	});
-
-
-	grunt.registerTask('default', [
-		'tplCopy',
-		'tsApp',
-		'http-server'
-	]);
-
-	grunt.registerTask('tsKarma', [
-		'ts:spec',
-		'copy:karma',
-		'karma'
-	]);
-
-
-	grunt.registerTask('tsApp', [
-		'clean:app',
-		'copy:app',
-		'ts:app',
-		'exec:barrels'
-	]);
-
-	grunt.registerTask('tsAppServer', [
-		'clean:app',
-		'copy:app',
-		'ts:app',
-		'exec:barrels',
-		'http-server'
-	]);
-
-	grunt.registerTask('tsAppHot', [
-		'clean:app',
-		'copy:app',
-		'ts:app',
-		'exec:barrels',
-		'http-server',
-
-		'watch:ts'
-	]);
-
-
-	grunt.registerTask('tsE2e', [
-		'clean:e2e',
-		'ts:e2e',
-	]);
-
-
-	grunt.registerTask('e2e', [
-		'tplCopy',
-		'tsApp',
-		'http-server',
-
-		'tsE2e',
-		'webdrivermanager:start',
-		'protractor',
-		// 'watch:e2e',
-		// 'watch:ts',
-		// 'watch:template',
-
-		'watch:buildE2e'
-
-	]);
-
-	grunt.registerTask('e2eServer', [
-		'tsE2e',
-		'http-server',
-		'webdrivermanager:start',
-		'protractor',
-	]);
-
-
-	grunt.registerTask('e2eHot', [
-		'e2eServer',
-		'watch:e2e'
-	]);
-
-
-	grunt.registerTask('tplCopy', [
-		'clean:build',
-		'copy:template'
-	]);
-
-	grunt.registerTask('tplServer', [
-		'tplCopy',
-		'http-server'
-	]);
-
-	// grunt.registerTask('tsSpec', [
-	// 	'http-server'
-	// ]);
-
-	grunt.registerTask('karmaServer', [
-		'tplCopy',
-		'http-server'
-	]);
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
@@ -157,5 +69,92 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 
 	grunt.loadNpmTasks('grunt-exec');
+
+
+	grunt.registerTask('server:background', [
+		'http-server:background'
+	]);
+
+	grunt.registerTask('compile:app', [
+		'tslint',
+		'clean:build',
+
+		/* template copy */
+		'copy:template',
+
+		'copy:app',
+		'ts:app',
+		'exec:barrels'
+	]);
+
+	grunt.registerTask('compile:spec', [
+		'ts:spec',
+		'copy:karma',
+		'karma'
+	]);
+
+	grunt.registerTask('compile:e2e', [
+		'clean:e2e',
+		'ts:e2e',
+		'protractor'
+	]);
+
+	grunt.registerTask('hot:app', [
+		'compile:app',
+
+		'server:background',
+		'exec:info',
+		'todo',
+		'watch:app'
+	]);
+
+	grunt.registerTask('hot:app-karma', [
+		'compile:app',
+
+		/* karma */
+		'compile:spec',
+
+		'server:background',
+		'exec:info',
+		'todo',
+		'watch:app-karma'
+	]);
+
+	grunt.registerTask('hot:app-karma-e2e', [
+		'compile:app',
+
+
+		/* karma */
+		'compile:spec',
+
+		'server:background',
+		'webdrivermanager:start',
+
+		/* e2e protractor */
+		'compile:e2e',
+
+		'exec:info',
+		'todo',
+		'watch:app-karma-e2e'
+	]);
+
+	grunt.registerTask('hot:e2e', [
+		'server:background',
+		'webdrivermanager:start',
+
+		/* e2e protractor */
+		'compile:e2e',
+
+		'exec:info',
+		'todo',
+		'watch:e2e'
+	]);
+
+	grunt.registerTask('hot:template', [
+		'clean:build',
+		'copy:template',
+		'http-server:background',
+		'watch:template'
+	]);
 
 };

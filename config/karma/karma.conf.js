@@ -88,15 +88,13 @@ module.exports = function(config) {
       // cnf.npm + 'reflect-metadata/Reflect.js',
 
       'https://unpkg.com/zone.js',
-      //
-      // // zone.js
-      // cnf.npm + 'zone.js/dist/zone.js',
-      // cnf.npm + 'zone.js/dist/long-stack-trace-zone.js',
-      // cnf.npm + 'zone.js/dist/proxy.js',
-      // cnf.npm + 'zone.js/dist/sync-test.js',
-      // cnf.npm + 'zone.js/dist/jasmine-patch.js',
-      // cnf.npm + 'zone.js/dist/async-test.js',
-      // cnf.npm + 'zone.js/dist/fake-async-test.js',
+			'https://unpkg.com/zone.js/dist/long-stack-trace-zone.js',
+			'https://unpkg.com/zone.js/dist/async-test.js',
+			'https://unpkg.com/zone.js/dist/fake-async-test.js',
+			'https://unpkg.com/zone.js/dist/sync-test.js',
+			'https://unpkg.com/zone.js/dist/proxy.js',
+			'https://unpkg.com/zone.js/dist/jasmine-patch.min.js',
+
 
       // RxJs
       // { pattern: cnf.npm + 'rxjs/**/*.js', included: false, watched: false },

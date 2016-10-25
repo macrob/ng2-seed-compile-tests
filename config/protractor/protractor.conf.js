@@ -120,5 +120,5 @@ exports.config = {
 	// 	showColors: true,
 	// 	defaultTimeoutInterval: 30000
 	// },
-	framework: 'jasmine',
+	framework: 'jasmine2',
 };
