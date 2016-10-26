@@ -14,10 +14,22 @@ module.exports = function (cnf) {
 					httpApp: 'http://' + cnf.httpHost + ':' + cnf.httpPort + '/' + cnf.build + '/',
 					httpE2e: 'http://' + cnf.httpHost + ':' + cnf.httpPort + '/' + cnf.tests.reports.protractor.results + '/e2e.html',
 					httpKarma: 'http://' + cnf.httpHost + ':' + cnf.httpPort + '/' + cnf.tests.reports.karma.coverage,
+					httpKarmaResults: 'http://' + cnf.httpHost + ':' + cnf.httpPort + '/' + cnf.tests.reports.karma.results + '/karma.html',
 				});
 
 			return '';
 		}
+	},
+	infoKarma: {
+		cmd: function() {
+			debug({
+				karma: 'http://' + cnf.karmaHost + ':' + cnf.karmaPort + '/',
+				httpKarma: 'http://' + cnf.httpHost + ':' + cnf.httpPort + '/' + cnf.tests.reports.karma.coverage,
+				httpKarmaResults: 'http://' + cnf.httpHost + ':' + cnf.httpPort + '/' + cnf.tests.reports.karma.results + '/karma.html',
+			});
+
+		return '';
 	}
+}
 	};
 };

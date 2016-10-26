@@ -30,6 +30,7 @@ module.exports = function(grunt) {
 		copy: require('./config/grunt/copy.js')(cnf),
 		clean: require('./config/grunt/clean.js')(cnf),
 		'http-server': require('./config/grunt/http-server.js')(cnf),
+		browserSync: require('./config/grunt/browserSync.js')(cnf),
 
 		/*
 		ts:app - compile app ts files
@@ -47,6 +48,18 @@ module.exports = function(grunt) {
 		karma: require('./config/grunt/karma.js')(cnf),
 
 		exec:  require('./config/grunt/exec.js')(cnf),
+				//
+				// concurrent: {
+				// 		dev: {
+				// 				tasks: [
+				// 						'watch',
+				// 						'browserSync'
+				// 				],
+				// 				options: {
+				// 						logConcurrentOutput: true
+				// 				}
+				// 		}
+				// }
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
@@ -69,10 +82,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 
 	grunt.loadNpmTasks('grunt-exec');
-
+// grunt.loadNpmTasks('grunt-concurrent');
 
 	grunt.registerTask('server:background', [
-		'http-server:background'
+		// 'http-server:background'
+		'browserSync'
 	]);
 
 	grunt.registerTask('compile:app', [
@@ -105,7 +119,8 @@ module.exports = function(grunt) {
 		'server:background',
 		'exec:info',
 		'todo',
-		'watch:app'
+		// 'watch:app'
+		'watch'
 	]);
 
 	grunt.registerTask('hot:app-karma', [
@@ -117,7 +132,8 @@ module.exports = function(grunt) {
 		'server:background',
 		'exec:info',
 		'todo',
-		'watch:app-karma'
+		// 'watch:app-karma'
+		'watch'
 	]);
 
 	grunt.registerTask('hot:app-karma-e2e', [
@@ -135,7 +151,9 @@ module.exports = function(grunt) {
 
 		'exec:info',
 		'todo',
-		'watch:app-karma-e2e'
+		// 'watch:app-karma-e2e'
+		'watch'
+
 	]);
 
 	grunt.registerTask('hot:e2e', [
@@ -147,14 +165,16 @@ module.exports = function(grunt) {
 
 		'exec:info',
 		'todo',
-		'watch:e2e'
+		// 'watch:e2e'
+		'watch'
 	]);
 
 	grunt.registerTask('hot:template', [
 		'clean:build',
 		'copy:template',
-		'http-server:background',
-		'watch:template'
+		'server:background',
+		// 'watch:template'
+		'watch'
 	]);
 
 };

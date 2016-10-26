@@ -143,8 +143,8 @@ module.exports = function(config) {
     exclude: [],
     preprocessors: preprocessors,
     // disabled HtmlReporter; suddenly crashing w/ strange socket error
-    // reporters: ['progress', 'kjhtml', 'html', 'coverage'],//'html'],
-    reporters: ['progress', 'kjhtml', 'coverage'],//'html'],
+    reporters: ['progress', 'kjhtml', 'html', 'coverage'],//'html'],
+    // reporters: ['progress', 'kjhtml', 'coverage'],//'html'],
     coverageReporter: {
       type : 'html',
       dir : '../../'+cnf.reportCoverage
@@ -163,7 +163,8 @@ module.exports = function(config) {
 
     // port: 9876,
     colors: true,
-    logLevel: config.LOG_INFO,
+    // logLevel: config.LOG_INFO,
+		logLevel: 'ERROR',
     autoWatch: true,
     // browsers: ['Chrome'],
     singleRun: false

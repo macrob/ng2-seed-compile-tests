@@ -6,4 +6,4 @@ declare var jQuery: any;
 
 console.log(`Application fake app started: ${test}`);
 // let $ = require('jquery');
-jQuery('app').text('Loaded From TS!, please read "rc/app/index.ts"' + test);
+jQuery('app').text('Loaded From TS!, pleasdde read "rc/app/index.ts"' + test);

@@ -37,7 +37,7 @@ module.exports = function(cnf) {
             tasks: [
                 'tslint',
                 'ts:spec',
-                // 'todo'
+                'exec:infoKarma'
             ]
         },
         e2e: {
@@ -46,9 +46,15 @@ module.exports = function(cnf) {
             tasks: [
                 'clean:e2e',
                 'ts:e2e',
-                'protractor'
             ]
         }
+    };
+
+    tasks.protractor = {
+        files: _.union(tasks.template.files, tasks.ts.files, tasks.app.files, tasks.e2e.files),
+        tasks: [
+        'protractor'
+        ]
     };
 
     var utilsTasks = [
@@ -57,69 +63,80 @@ module.exports = function(cnf) {
     ];
 
     return {
-        'app-karma-e2e': {
-            files: _.union(tasks.template.files, tasks.ts.files, tasks.spec.files, tasks.app.files, tasks.e2e.files),
-            tasks: _.union(tasks.template.tasks, tasks.ts.tasks, tasks.spec.tasks, tasks.app.tasks, tasks.e2e.tasks, utilsTasks),
-        },
-        'app-karma': {
-            files: _.union(tasks.template.files, tasks.ts.files, tasks.spec.files, tasks.app.files),
-            tasks: _.union(tasks.template.tasks, tasks.ts.tasks, tasks.spec.tasks, tasks.app.tasks, utilsTasks),
-        },
-        app: {
-            files: _.union(tasks.template.files, tasks.ts.files, tasks.app.files),
-            tasks: _.union(tasks.template.tasks, tasks.ts.tasks, tasks.app.tasks, utilsTasks),
-        },
+        // 'app-karma-e2e': {
+        //     files: _.union(tasks.template.files, tasks.ts.files, tasks.spec.files, tasks.app.files, tasks.e2e.files),
+        //     tasks: _.union(tasks.template.tasks, tasks.ts.tasks, tasks.spec.tasks, tasks.app.tasks, tasks.e2e.tasks, utilsTasks),
+        //     // template: tasks.template,
+        //     // ts:  tasks.ts,
+        //     // spec: tasks.spec,
+        //     // app: tasks.app,
+        //     // e2e: tasks.e2e
+        //
+        // },
+        // 'app-karma': {
+        //     files: _.union(tasks.template.files, tasks.ts.files, tasks.spec.files, tasks.app.files),
+        //     tasks: _.union(tasks.template.tasks, tasks.ts.tasks, tasks.spec.tasks, tasks.app.tasks, utilsTasks),
+        // },
+        // app: {
+        //     files: _.union(tasks.template.files, tasks.ts.files, tasks.app.files),
+        //     tasks: _.union(tasks.template.tasks, tasks.ts.tasks, tasks.app.tasks, utilsTasks),
+        // },
         template: tasks.template,
         ts: tasks.ts,
         spec: tasks.spec,
         e2e: tasks.e2e,
-        'buildE2e': {
-            files: [
-                cnf.srcTpl + '**/*.html', cnf.srcTpl + '**/*.js', cnf.srcTpl + '**/*.css', cnf.srcTpl + '**/*.md', cnf.srcTpl + '**/*.xml', cnf.srcTpl + '**/*.ico', cnf.srcTpl + '**/*.txt', cnf.srcTpl + '**/*.png',
-                'e2e/**/*.ts',
-                'src/app/**/*.ts', '!src/app/**/*.spec.ts'
-            ],
-
-            tasks: [
-                'copy:template',
-
-                'ts:e2e',
-
-                // 'tslint',
-                'ts:app',
-                // 'todo',
-
-                'protractor'
-            ]
-        },
-        js: {
-            files: ['src/**/*.js'],
-
-            tasks: [
-                'copy:js'
-            ]
-        },
-        sass: {
-            files: ['src/**/*.scss'],
-
-            tasks: [
-                'sass'
-            ]
-        },
-        'html-index': {
-            files: ['src/*.html'],
-
-            tasks: [
-                'copy:html-index', 'rename:html-index'
-            ]
-        },
-        'karma-conf': {
-            files: ['config/karma/*.js'],
-
-            tasks: [
-                'copy:karma'
-            ]
-        }
+        appAssets: tasks.app,
+        protractor: tasks.protractor
 
     }
 }
+
+//
+//
+// 'buildE2e': {
+//     files: [
+//         cnf.srcTpl + '**/*.html', cnf.srcTpl + '**/*.js', cnf.srcTpl + '**/*.css', cnf.srcTpl + '**/*.md', cnf.srcTpl + '**/*.xml', cnf.srcTpl + '**/*.ico', cnf.srcTpl + '**/*.txt', cnf.srcTpl + '**/*.png',
+//         'e2e/**/*.ts',
+//         'src/app/**/*.ts', '!src/app/**/*.spec.ts'
+//     ],
+//
+//     tasks: [
+//         'copy:template',
+//
+//         'ts:e2e',
+//
+//         // 'tslint',
+//         'ts:app',
+//         // 'todo',
+//
+//         'protractor'
+//     ]
+// },
+// js: {
+//     files: ['src/**/*.js'],
+//
+//     tasks: [
+//         'copy:js'
+//     ]
+// },
+// sass: {
+//     files: ['src/**/*.scss'],
+//
+//     tasks: [
+//         'sass'
+//     ]
+// },
+// 'html-index': {
+//     files: ['src/*.html'],
+//
+//     tasks: [
+//         'copy:html-index', 'rename:html-index'
+//     ]
+// },
+// 'karma-conf': {
+//     files: ['config/karma/*.js'],
+//
+//     tasks: [
+//         'copy:karma'
+//     ]
+// }

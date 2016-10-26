@@ -25,42 +25,35 @@ module.exports = function(cnf) {
             bsFiles: {
                 src: [
                     //'test/fixtures/css/*.css',
-                    'dist/*.html'
+                    'dist/**/*'
                 ]
             },
             options: {
+                watchTask: true,
+                injectChanges: true,
+                background: true,
                 open: false,
                 online: false,
-                background: false,
+                port: cnf.httpPort,
+
+                showDir: true,
+                autoIndex: true,
+                // the host ip address
+                // If specified to, for example, '127.0.0.1' the server will
+                // only be available on that ip.
+                // Specify '0.0.0.0' to be available everywhere
+                ui: {
+                    port: 3011
+                },
                 server: {
-                    baseDir: ["dist/"],
+                    baseDir: ["./"],
                     middleware: [
                         function(req, res, next) {
-                            console.log("from middleware 1");
+                            // console.log("from middleware 1");
                             next();
                         }
                     ]
-                }
-            }
-        },
-        proxy: {
-            files: {
-                src: [
-                    'dist/*.html'
-                ]
-            },
-            options: {
-                watchTask: false,
-                debugInfo: true,
-                ghostMode: {
-                    scroll: true,
-                    links: true,
-                    forms: true
                 },
-                proxy: {
-                    host: "172.16.167.153",
-                    port: 9001
-                }
             }
         }
     };
