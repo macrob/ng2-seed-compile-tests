@@ -35,9 +35,9 @@ module.exports = function(cnf) {
                 open: false,
                 online: false,
                 port: cnf.httpPort,
+                // tunnel: cnf.httpHost,
+                directory: true,
 
-                showDir: true,
-                autoIndex: true,
                 // the host ip address
                 // If specified to, for example, '127.0.0.1' the server will
                 // only be available on that ip.
