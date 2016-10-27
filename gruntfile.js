@@ -2,6 +2,7 @@ const config = require('config');
 const debug = require('debug')('grunt:cnf:gruntfile.js');
 
 console.log('To show debug info set DEBUG="grunt*"');
+console.log(' set -x DEBUG \'grunt*\'');
 
 let cnf = {
 	srcApp: config.get('src.app'),

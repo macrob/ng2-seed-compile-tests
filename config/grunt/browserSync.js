@@ -32,10 +32,11 @@ module.exports = function(cnf) {
                 watchTask: true,
                 injectChanges: true,
                 background: true,
-                open: false,
+                // open: 'local',
                 online: false,
                 port: cnf.httpPort,
                 // tunnel: cnf.httpHost,
+                // index: 'index.html',
                 directory: true,
 
                 // the host ip address
@@ -46,7 +47,8 @@ module.exports = function(cnf) {
                     port: 3011
                 },
                 server: {
-                    baseDir: ["./"],
+                    baseDir: ['./'],
+                    index: 'index.html',
                     middleware: [
                         function(req, res, next) {
                             // console.log("from middleware 1");

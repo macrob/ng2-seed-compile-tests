@@ -5,7 +5,7 @@ describe('Index Page', () => {
 	const conf = require('config');
 
 	const maps = {
-		index: conf.get('e2e.url')
+		index: conf.get('e2e.url') + 'index.html'
 	};
 
 	beforeEach( (done: () => void) => {
@@ -17,7 +17,7 @@ describe('Index Page', () => {
 		browser.get(maps.index);
 
 
-		expect(browser.getTitle()).toContain('ng22 Test');
+		expect(browser.getTitle()).toContain('ng2 Test');
 		cb();
 	});
 
@@ -27,7 +27,7 @@ describe('Index Page', () => {
 		browser.get(maps.index);
 
 
-		expect(browser.getTitle()).toContain('ng2 Test');
+		expect(browser.getTitle()).toContain('ng222 Test');
 		cb();
 	});
 
