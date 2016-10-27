@@ -80,7 +80,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-rename');
 	grunt.loadNpmTasks('grunt-browser-sync');
 	grunt.loadNpmTasks('grunt-contrib-sass');
-	grunt.loadNpmTasks('grunt-contrib-connect');
+	// grunt.loadNpmTasks('grunt-contrib-connect');
 
 	grunt.loadNpmTasks('grunt-exec');
 // grunt.loadNpmTasks('grunt-concurrent');
