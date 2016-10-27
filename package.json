@@ -29,7 +29,7 @@
     "@types/jasmine": "^2.5.35",
     "@types/karma": "^0.13.33",
     "@types/protractor": "^1.5.20",
-    "@types/selenium-webdriver": "^2.44.26",
+    "@types/selenium-webdriver": "2.44.26",
     "config": "^1.21.0",
     "grunt": "^1.0.1",
     "grunt-browser-sync": "^2.2.0",
